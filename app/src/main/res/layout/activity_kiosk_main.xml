@@ -18,6 +18,7 @@
             android:id="@+id/btn_network_noti"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:text="공지"
             tools:ignore="MissingConstraints" />
 
@@ -25,7 +26,33 @@
             android:id="@+id/btn_network_checkout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:text="로그인시도"
             tools:ignore="MissingConstraints" />
+
+        <Button
+            android:id="@+id/btn_network_logincheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="로그인체크"
+            tools:ignore="MissingConstraints" />
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="100dp"
+            android:background="@color/black" />
+
+        <TextView
+            android:id="@+id/tx_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
