@@ -21,7 +21,7 @@ data class KioskNoticeModel (
         val name: String,
         val totCnt: String,
         val Cnt: String,
-        val rows: List<Any>,
+        val rows: List<KioskResponseAds>,
         val visit: KioaskResponseVisite,
         val cos: KioskResponseCos,
         val lsn: KioskResponseCos,
