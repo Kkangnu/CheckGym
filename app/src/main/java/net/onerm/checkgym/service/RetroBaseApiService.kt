@@ -26,32 +26,16 @@ class CheckGymApi {
     }
 
     companion object {
-        fun postKiosk(actMode: ACT_MODE, comno: String) : Observable<KioskNoticeModel> {
-            var map :MutableMap<String, String> = mutableMapOf()
-            map[CheckGymConsts.API_BODY_COMNO] = comno;
-            map[CheckGymConsts.API_BODY_ACTMODE] = actMode.action;
+        fun postKiosk(kioskRequestModel: KioskRequestModel) : Observable<KioskNoticeModel> {
+            val oMapper = ObjectMapper()
+            var map : MutableMap<String, String> = oMapper.readValue(oMapper.writeValueAsString(kioskRequestModel))
+
             return RetrofitCreator.create(CheckGymApiImpl::class.java).postKiosk(map)
         }
 
-        fun postMember(actMode: ACT_MODE, comno: String, customNum: String) : Observable<KioskNoticeModel> {
-            var map :MutableMap<String, String> = mutableMapOf()
-            map[CheckGymConsts.API_BODY_COMNO] = comno;
-            map[CheckGymConsts.API_BODY_ACTMODE] = actMode.action;
-            map[CheckGymConsts.API_BODY_CUSTOMER_NUMBER] = customNum;
-            return RetrofitCreator.create(CheckGymApiImpl::class.java).postMember(map)
-        }
-
-        fun postMember(actMode: ACT_MODE, kioskRequestModel: KioskRequestModel) : Observable<KioskNoticeModel> {
-//            var map :MutableMap<String, String> = mutableMapOf()
-//            map[CheckGymConsts.API_BODY_COMNO] = comno;
-//            map[CheckGymConsts.API_BODY_ACTMODE] = actMode.action;
-//            map[CheckGymConsts.API_BODY_CUSTOMER_NUMBER] = customNum;
-//            map[CheckGymConsts.API_BODY_CATEGORY] = ucategory;
+        fun postMember(kioskRequestModel: KioskRequestModel) : Observable<KioskNoticeModel> {
             val oMapper = ObjectMapper()
-            //val map: Map<String, Any> = oMapper.convertValue(kioskNoticeModel, MutableMap<String, Any>::class.java)
-            //var map : Map<String, *>? =  oMapper.convertValue(kioskNoticeModel, TypeReference<Map<String, Any>>() {})
             var map : MutableMap<String, String> = oMapper.readValue(oMapper.writeValueAsString(kioskRequestModel))
-            map[CheckGymConsts.API_BODY_ACTMODE] = actMode.action
 
             return RetrofitCreator.create(CheckGymApiImpl::class.java).postMember(map)
         }

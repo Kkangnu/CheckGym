@@ -1,21 +1,35 @@
 package net.onerm.checkgym.kiosk.model
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.util.*
+
+
 data class KioskNoticeModel (
-        var endtype: String,
-        var code: Long,
-        var msg: String,
-        var comno: String,
-        var comname: String,
-        var mno: String,
-        var username: String,
-        var photo: String,
-        var birthday: String,
-        var birthday_yn: String,
-        var last_io: String,
-        var custno: String,
-        var name: String
+        val endtype: String,
+        val code: Long,
+        val msg: String,
+        val comno: String,
+        val comname: String,
+        val mno: String,
+        val username: String,
+        val photo: String,
+        val birthday: String,
+        val birthday_yn: String,
+        val last_io: String,
+        val custno: String,
+        val name: String,
+        val totCnt: String,
+        val Cnt: String,
+        val rows: List<Any>,
+        val visit: KioaskResponseVisite,
+        val cos: KioskResponseCos,
+        val lsn: KioskResponseCos,
+        val totTran: KioskResponseTran
+        //val rows: List<KioskRequestAudio>
+        //val kioskResponseAds: List<KioskResponseAds>
 ) {
     override fun toString(): String {
-        return super.toString().replace(",", ",\n").replace("(","(\n")
+        return Gson().toJson(this).replace(",", ",\n").replace("(","(\n")
     }
 }
