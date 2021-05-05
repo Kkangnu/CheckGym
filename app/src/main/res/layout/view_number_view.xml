@@ -6,19 +6,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/txt_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="1111"
-        android:textSize="70dp"
+        android:text="566465456"
+        android:hint="회원 번호 입력"
+        android:textSize="45dp"
+        android:maxLength="9"
+        android:maxLines="1"
+        android:clickable="false"
         android:textColor="#D7C49E"
         android:gravity="center"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_margin="30dp"/>
+        android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/num_1"

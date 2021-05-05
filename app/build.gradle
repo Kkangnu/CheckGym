@@ -57,6 +57,9 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
+    // rxBinding
+    implementation 'com.jakewharton.rxbinding4:rxbinding:4.0.0'
+
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
@@ -67,4 +70,8 @@ dependencies {
     //glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    //loopingViewpager
+    implementation 'com.asksira.android:loopingviewpager:1.4.1'
+
 }
