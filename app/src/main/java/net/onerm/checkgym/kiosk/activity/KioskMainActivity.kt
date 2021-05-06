@@ -1,30 +1,21 @@
 package net.onerm.checkgym.kiosk.activity
 
 import android.content.Intent
-import android.graphics.Color.red
-import android.os.Build
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatEditText
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import androidx.viewpager2.widget.ViewPager2
-import com.asksira.loopingviewpager.LoopingViewPager
-import com.asksira.loopingviewpager.indicator.CustomShapePagerIndicator
 import com.jakewharton.rxbinding4.view.clicks
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.android.synthetic.main.view_ads_view.*
+import kotlinx.android.synthetic.main.view_number_view.*
 import net.onerm.checkgym.R
 import net.onerm.checkgym.const.ACT_MODE
 import net.onerm.checkgym.const.CheckGymConsts
@@ -37,27 +28,7 @@ import net.onerm.checkgym.utils.dp
 
 class KioskMainActivity : AppCompatActivity() {
     var compositeDisposable= CompositeDisposable()
-    lateinit var viewPagerImageSlider: LoopingViewPager
     lateinit var kioskAdsAdpater: KioskAdsAdapter
-    lateinit var textValue: AppCompatEditText
-
-    lateinit var customShapePagerIndicator: CustomShapePagerIndicator
-
-    lateinit var btnNum0: AppCompatButton
-    lateinit var btnNum1: AppCompatButton
-    lateinit var btnNum2: AppCompatButton
-    lateinit var btnNum3: AppCompatButton
-
-    lateinit var btnNum4: AppCompatButton
-    lateinit var btnNum5: AppCompatButton
-    lateinit var btnNum6: AppCompatButton
-    lateinit var btnNum7: AppCompatButton
-
-    lateinit var btnNum8: AppCompatButton
-    lateinit var btnNum9: AppCompatButton
-    lateinit var btnNumDel: AppCompatButton
-    lateinit var btnNumCheck: AppCompatButton
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,25 +44,17 @@ class KioskMainActivity : AppCompatActivity() {
     }
 
     private fun initView(){
-        // 광고
-        viewPagerImageSlider = findViewById(R.id.viewPagerImageSlider)
-
-
-        // 광고 인디케이터
-        customShapePagerIndicator = findViewById(R.id.indicator)
         viewPagerImageSlider.onIndicatorProgress = { selectionPosition , progress ->
-            customShapePagerIndicator.onPageScrolled (selectionPosition, progress)
+            indicator.onPageScrolled (selectionPosition, progress)
         }
 
-
-
-        customShapePagerIndicator.highlighterViewDelegate = {
+        indicator.highlighterViewDelegate = {
             val highlighter = View(this)
             highlighter.layoutParams = FrameLayout.LayoutParams(32.dp(), 4.dp())
             highlighter.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
             highlighter
         }
-        customShapePagerIndicator.unselectedViewDelegate = {
+        indicator.unselectedViewDelegate = {
             val unselected = View(this)
             unselected.layoutParams = LinearLayout.LayoutParams(32.dp(), 4.dp())
             unselected.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
@@ -99,83 +62,63 @@ class KioskMainActivity : AppCompatActivity() {
             unselected
         }
 
+        val obBtnNum0 = num_0.clicks().map { num_0 }
+        val obBtnNum1 = num_1.clicks().map { num_1 }
+        val obBtnNum2 = num_2.clicks().map { num_2 }
+        val obBtnNum3 = num_3.clicks().map { num_3 }
 
+        val obBtnNum4 = num_4.clicks().map { num_4 }
+        val obBtnNum5 = num_5.clicks().map { num_5 }
+        val obBtnNum6 = num_6.clicks().map { num_6 }
+        val obBtnNum7 = num_7.clicks().map { num_7 }
 
-        //입력 번호
-        textValue = findViewById(R.id.txt_value)
-        // 버튼
-        btnNum0 = findViewById(R.id.num_0)
-        btnNum1 = findViewById(R.id.num_1)
-        btnNum2 = findViewById(R.id.num_2)
-        btnNum3 = findViewById(R.id.num_3)
-
-        btnNum4 = findViewById(R.id.num_4)
-        btnNum5 = findViewById(R.id.num_5)
-        btnNum6 = findViewById(R.id.num_6)
-        btnNum7 = findViewById(R.id.num_7)
-
-        btnNum8 = findViewById(R.id.num_8)
-        btnNum9 = findViewById(R.id.num_9)
-        btnNumDel = findViewById(R.id.num_del)
-        btnNumCheck = findViewById(R.id.num_chek)
-
-        val obBtnNum0 = btnNum0.clicks().map { btnNum0 }
-        val obBtnNum1 = btnNum1.clicks().map { btnNum1 }
-        val obBtnNum2 = btnNum2.clicks().map { btnNum2 }
-        val obBtnNum3 = btnNum3.clicks().map { btnNum3 }
-
-        val obBtnNum4 = btnNum4.clicks().map { btnNum4 }
-        val obBtnNum5 = btnNum5.clicks().map { btnNum5 }
-        val obBtnNum6 = btnNum6.clicks().map { btnNum6 }
-        val obBtnNum7 = btnNum7.clicks().map { btnNum7 }
-
-        val obBtnNum8 = btnNum8.clicks().map { btnNum8 }
-        val obBtnNum9 = btnNum9.clicks().map { btnNum9 }
-        val obBtnNumDel = btnNumDel.clicks().map { btnNumDel }
-        val obBtnNumCheck = btnNumCheck.clicks().map { btnNumCheck }
+        val obBtnNum8 = num_8.clicks().map { num_8 }
+        val obBtnNum9 = num_9.clicks().map { num_9 }
+        val obBtnNumDel = num_del.clicks().map { num_del }
+        val obBtnNumCheck = num_chek.clicks().map { num_chek }
 
         val disposable = Observable.mergeArray(obBtnNum0, obBtnNum1, obBtnNum2, obBtnNum3,
                 obBtnNum4, obBtnNum5, obBtnNum6, obBtnNum7,
                 obBtnNum8, obBtnNum9, obBtnNumDel, obBtnNumCheck).subscribe {
             when(it) {
-                btnNum0 -> {
-                    textValue.setText(textValue.text.toString() + "0")
+                num_0 -> {
+                    txt_value.setText(txt_value.text.toString() + "0")
                 }
-                btnNum1 -> {
-                    textValue.setText(textValue.text.toString() + "1")
+                num_1 -> {
+                    txt_value.setText(txt_value.text.toString() + "1")
                 }
-                btnNum2 -> {
-                    textValue.setText(textValue.text.toString() + "2")
+                num_2 -> {
+                    txt_value.setText(txt_value.text.toString() + "2")
                 }
-                btnNum3 -> {
-                    textValue.setText(textValue.text.toString() + "3")
+                num_3 -> {
+                    txt_value.setText(txt_value.text.toString() + "3")
                 }
-                btnNum4 -> {
-                    textValue.setText(textValue.text.toString() + "4")
+                num_4 -> {
+                    txt_value.setText(txt_value.text.toString() + "4")
                 }
-                btnNum5 -> {
-                    textValue.setText(textValue.text.toString() + "5")
+                num_5 -> {
+                    txt_value.setText(txt_value.text.toString() + "5")
                 }
-                btnNum6 -> {
-                    textValue.setText(textValue.text.toString() + "6")
+                num_6 -> {
+                    txt_value.setText(txt_value.text.toString() + "6")
                 }
-                btnNum7 -> {
-                    textValue.setText(textValue.text.toString() + "7")
+                num_7 -> {
+                    txt_value.setText(txt_value.text.toString() + "7")
                 }
-                btnNum8 -> {
-                    textValue.setText(textValue.text.toString() + "8")
+                num_8 -> {
+                    txt_value.setText(txt_value.text.toString() + "8")
                 }
-                btnNum9 -> {
-                    textValue.setText(textValue.text.toString() + "9")
+                num_9 -> {
+                    txt_value.setText(txt_value.text.toString() + "9")
                 }
-                btnNumDel -> {
-                    if(textValue.text.toString().isNotEmpty()) {
-                        textValue.setText(textValue.text?.subSequence(0, textValue.text!!.length - 1))
+                num_del -> {
+                    if(txt_value.text.toString().isNotEmpty()) {
+                        txt_value.setText(txt_value.text?.subSequence(0, txt_value.text!!.length - 1))
                     }
 
                 }
-                btnNumCheck -> {
-                        getCheckLogin(textValue.text.toString())
+                num_chek -> {
+                        getCheckLogin(txt_value.text.toString())
                 }
             }
         }
@@ -208,10 +151,9 @@ class KioskMainActivity : AppCompatActivity() {
                 .subscribeOn(Schedulers.newThread())
                 .subscribe({ response: KioskNoticeModel ->
                     Log.d("MainActivity", response.toString())
-
                     kioskAdsAdpater = KioskAdsAdapter(response.rows, viewPagerImageSlider)
                     viewPagerImageSlider.adapter = kioskAdsAdpater
-                    customShapePagerIndicator.updateIndicatorCounts(viewPagerImageSlider.indicatorCount)
+                    indicator.updateIndicatorCounts(viewPagerImageSlider.indicatorCount)
                 }, { error: Throwable ->
                     Log.d("MainActivity", error.localizedMessage)
                     Toast.makeText(this, "Error ${error.localizedMessage}", Toast.LENGTH_SHORT).show()
@@ -225,7 +167,6 @@ class KioskMainActivity : AppCompatActivity() {
             .subscribeOn(Schedulers.newThread())
             .subscribe({ response: KioskNoticeModel ->
                 Log.d("MainActivity", response.toString())
-
                 if(response.code == 0L) {
                     startActivity(Intent(this, KioskDetailActivity::class.java))
                 }
